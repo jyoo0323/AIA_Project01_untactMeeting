@@ -1,25 +1,75 @@
 package myweb_ex;
 
 import java.sql.Connection;
-import socket.SocketTools;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
 	private final static String IDEXIST = "SELECT * FROM USER WHERE ID=?";
 	private static String LOGIN[] = {"SELECT * FROM USER WHERE ID=", " AND PWD="};
-	//private final String SIGNUP = "INSERT INTO USER VALUES(?, ? )";
 	private static PreparedStatement pstmt;
 	private static Connection conn;
 	private static ResultSet rs;	
 	private static Statement stmt;
 	private static JDBCutils jdbc;
 	
+	public static void main(String[] args) {
+		String ans = findID("김사장","사장","1111");
+		System.out.println(ans);
+	}
+	public static String findID(String name, String pos, String code) {
+		String ans = "";
+		String FIND = "SELECT ID FROM USER WHERE NAME=? AND POSITION=? AND CODE=?";
+		jdbc = new JDBCutils();
+		conn = jdbc.getConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(FIND);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pos);
+			pstmt.setString(3, code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ans = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			jdbc.close(conn, pstmt, rs);;
+		}
+		return ans;
+	}
+	public static List<String> getAllUsers() {
+		List<String> users = new ArrayList<String>();
+		String SELECT_ALL = "SELECT * FROM USER";
+		jdbc = new JDBCutils();
+		conn = jdbc.getConnection();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SELECT_ALL);
+			
+			while(rs.next()) {
+				users.add(rs.getString("NAME")+" "+rs.getString("POSITION"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			jdbc.close(conn);
+			jdbc.close(stmt);
+		}
+		
+		return users;
+		
+	}
+	
 	public static boolean login(String id, String pwd) {
 		String LOGINinfo = LOGIN[0]+"'"+id+"'"+LOGIN[1]+"'"+pwd+"'";
-		System.out.println(LOGINinfo);
 		jdbc = new JDBCutils();
 		conn = jdbc.getConnection();
 		
@@ -34,14 +84,9 @@ public class User {
 		}catch (SQLException e){
 			e.printStackTrace();
 		}finally {
-			jdbc.close(rs, stmt, conn);
+			jdbc.close(conn, stmt, rs);
 		}
 		return false;
-	}
-	
-	
-	public static void signUp(String id, String pwd) {
-		
 	}
 	
 	public static String getNameAndPos(String id) {
@@ -65,7 +110,7 @@ public class User {
 					rs = stmt.executeQuery(pos);
 					if(rs.next()) {
 						String ps = rs.getString("POSITION");
-						res += "["+ps+"]";
+						res += ps;
 					}
 				}
 			}
@@ -73,7 +118,7 @@ public class User {
 		}catch (SQLException e){
 			e.printStackTrace();
 		}finally {
-			jdbc.close(rs, stmt, conn);
+			jdbc.close( conn, stmt, rs);
 		}
 		return res;
 	}

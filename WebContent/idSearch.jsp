@@ -3,17 +3,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+   <link rel="stylesheet" href="search.css">
 <meta charset="UTF-8">
-<title>ID Search</title>
+<title>Insert title here</title>
 </head>
 <body>
+   <section class="search-form">
+      <h1>Search ID</h1>
+      <form action="idSearchHelp.jsp">
+         <div class="int-area">
+            <input type="text" name="name" id="name" autocomplete="off" placeholder="NAME" />
+         </div>
+         <div class="int-area">
+            <input type="text" name="position" id="position" autocomplete="off" placeholder="POSITION" />
+         </div>
+         <div class="int-area">
+            <input type="text" name="code" id="code" autocomplete="off"   placeholder="CODE" />
 
-<h2>Search ID</h2>
-<h4>if you wanna go back to the log in page click the button</h4>
-
-<form action="LoginUI.jsp">
-<input type="submit" value="log in" />
-
+         </div>         
+         <div class="btn-area">
+            <button class="lookupbtn" type="submit">Look UP -></button><br>
+            <a href="LoginUI.jsp">Cancel</a><br>
+            <br>
+         </div>
+      </form>
+   </section>
 
 
 </body>

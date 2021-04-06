@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 <%
 String name = request.getParameter("id");
 String pwd = request.getParameter("pwd");
@@ -18,7 +17,6 @@ boolean login = User.login(name, pwd);
 
 String posName = User.getNameAndPos(name);
 
-System.out.println(posName);
 if(login) {
 	session.setAttribute("id", posName);
 	response.sendRedirect("interfaceUI.jsp");
@@ -29,8 +27,6 @@ if(login) {
 alert("로그인 실패");
 location.href="LoginUI.jsp";
 </script>
-
-
 
 </body>
 </html>

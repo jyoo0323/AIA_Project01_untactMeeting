@@ -1,0 +1,20 @@
+plans to hit:
+	4. control administration of the ppt imgs
+		==> NOT GRNTEED:
+			opt1: give the div containing the img an id & disable buttons to change
+			img when  
+	
+			
+	02-19: chart.js ==> 차트를 만들어 현재 프로젝트의 진행 현황등을 차트(파이차트, scatter, etc)로 만들어서
+		알림판에 공지할수 있는 기능을 추가해 보라는 오더가 내려왔다.. 어케하지.
+		
+	02-20: ppt 자체는 클라이언트에서 구현성공. 이제 ajax를 이용해 모든 클라이언트에 뿌려주면 되는데.. 어케하지.....
+	
+	
+	02-22:
+		파일 업로드하는 부분을 아예 따로 빼내어 에이잭스로 구현한후 업로드 할때 세션 아이디 값을 받아서
+		해당 계정에서 stop ppt 버튼을 누르기 전까지 다른 계정에선 접근 불가하게 만든다.
+		
+		업로드가 된 이미지 파일들을 이용해 ppt 생성. ==> 이미지 전부 가져오게 만들어 보자.
+		
+		
